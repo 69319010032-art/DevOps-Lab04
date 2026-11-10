@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#f5f8ff">
+  <meta name="description" content="แจ้งปัญหาไอทีและติดตามงานซ่อมได้ง่าย ๆ กับทีม IT Support">
+  <title>FixFlow | IT Support ที่พร้อมดูแลคุณ</title>
+  <style>
+    :root {
+      color-scheme: light;
+      --navy: #102856;
+      --blue: #2864e8;
+      --blue-dark: #194dc3;
+      --sky: #eaf1ff;
+      --ink: #172b4d;
+      --muted: #6d7d98;
+      --line: #e7edf7;
+      --white: #fff;
+      --green: #1d9a72;
+      --shadow: 0 22px 65px rgba(31, 69, 135, .12);
+      font-family: "Segoe UI", Tahoma, "Noto Sans Thai", sans-serif;
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body { margin: 0; color: var(--ink); background: var(--white); line-height: 1.65; }
+    a { color: inherit; text-decoration: none; }
+    button, input, select, textarea { font: inherit; }
+    .container { width: min(1120px, calc(100% - 48px)); margin-inline: auto; }
+
+    .topbar { background: var(--navy); color: #eaf1ff; font-size: 13px; }
+    .topbar-inner { min-height: 38px; display: flex; align-items: center; justify-content: space-between; gap: 16px; }
+    .topbar-note { display: flex; align-items: center; gap: 9px; }
+    .live-dot { width: 7px; height: 7px; border-radius: 50%; background: #54d6a5; box-shadow: 0 0 0 4px rgba(84, 214, 165, .14); }
+    .topbar a { color: #fff; }
+
+    header { position: sticky; top: 0; z-index: 5; background: rgba(255,255,255,.94); border-bottom: 1px solid rgba(231,237,247,.8); backdrop-filter: blur(14px); }
+    .nav { min-height: 76px; display: flex; align-items: center; justify-content: space-between; gap: 28px; }
+    .brand { display: inline-flex; align-items: center; gap: 10px; font-size: 21px; font-weight: 800; letter-spacing: -.7px; color: var(--navy); white-space: nowrap; }
+    .brand-mark { width: 37px; height: 37px; display: grid; place-items: center; color: white; border-radius: 12px; background: var(--blue); box-shadow: 0 7px 16px rgba(40,100,232,.23); }
+    .brand-mark svg { width: 22px; height: 22px; }
+    .brand span span { color: var(--blue); }
+    .nav-links { display: flex; align-items: center; gap: 32px; color: #596a86; font-size: 14px; font-weight: 600; }
+    .nav-links a:hover { color: var(--blue); }
+    .button { display: inline-flex; align-items: center; justify-content: center; gap: 9px; min-height: 48px; padding: 0 20px; border: 0; border-radius: 12px; background: var(--blue); color: white; font-weight: 700; cursor: pointer; box-shadow: 0 9px 20px rgba(40,100,232,.2); transition: transform .18s ease, background .18s ease; }
+    .button:hover { background: var(--blue-dark); transform: translateY(-2px); }
+    .button svg { width: 17px; height: 17px; }
+    .button-outline { background: white; color: var(--navy); border: 1px solid #dfe7f4; box-shadow: none; }
+    .button-outline:hover { background: #f7f9ff; color: var(--blue); }
+
+    .hero { position: relative; overflow: hidden; background: linear-gradient(112deg, #f8faff 0%, #eff4ff 58%, #e8f0ff 100%); }
+    .hero::before, .hero::after { content: ""; position: absolute; border-radius: 50%; pointer-events: none; }
+    .hero::before { width: 490px; height: 490px; right: -120px; top: -245px; border: 1px solid rgba(76,125,231,.12); box-shadow: 0 0 0 45px rgba(76,125,231,.035), 0 0 0 90px rgba(76,125,231,.025); }
+    .hero::after { width: 300px; height: 300px; left: -180px; bottom: -180px; background: rgba(81,132,239,.06); }
+    .hero-grid { position: relative; z-index: 1; min-height: 590px; display: grid; grid-template-columns: 1fr .9fr; align-items: center; gap: 55px; padding-block: 66px 78px; }
+    .eyebrow { display: inline-flex; align-items: center; gap: 8px; padding: 7px 12px; border: 1px solid #dce7ff; border-radius: 999px; background: rgba(255,255,255,.76); color: var(--blue); font-size: 12px; font-weight: 700; }
+    .eyebrow svg { width: 15px; height: 15px; }
+    h1 { margin: 19px 0 16px; max-width: 570px; color: var(--navy); font-size: clamp(40px, 5vw, 58px); line-height: 1.19; letter-spacing: -1.8px; }
+    h1 span { color: var(--blue); }
+    .hero-copy { max-width: 510px; margin: 0; color: #667792; font-size: 17px; }
+    .hero-actions { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 29px; }
+    .trust-row { display: flex; align-items: center; gap: 12px; margin-top: 30px; color: #71819a; font-size: 12px; }
+    .avatars { display: flex; padding-left: 3px; }
+    .avatar { width: 29px; height: 29px; margin-left: -4px; display: grid; place-items: center; border: 2px solid #f4f7ff; border-radius: 50%; background: #d6e5ff; color: #315a9f; font-size: 10px; font-weight: 800; }
+    .avatar:nth-child(2) { background: #d2f0e5; color: #237b60; }
+    .avatar:nth-child(3) { background: #ffe8d6; color: #a3612b; }
+    .avatar:nth-child(4) { background: #e8dcff; color: #6740a2; }
+
+    .visual { position: relative; min-height: 420px; display: grid; place-items: center; }
+    .visual-orbit { position: absolute; width: 390px; height: 390px; border: 1px dashed rgba(66,113,216,.2); border-radius: 50%; }
+    .visual-orbit::before, .visual-orbit::after { content: ""; position: absolute; width: 10px; height: 10px; border-radius: 50%; background: #72a1ff; box-shadow: 0 0 0 7px rgba(114,161,255,.13); }
+    .visual-orbit::before { left: 36px; top: 74px; }
+    .visual-orbit::after { right: 6px; bottom: 112px; background: #4bc7a2; box-shadow: 0 0 0 7px rgba(75,199,162,.13); }
+    .dashboard { position: relative; width: min(100%, 400px); padding: 19px; border: 1px solid rgba(255,255,255,.9); border-radius: 22px; background: rgba(255,255,255,.94); box-shadow: 0 26px 70px rgba(34,71,140,.18); transform: rotate(-2deg); }
+    .dash-head { display: flex; align-items: center; justify-content: space-between; margin-bottom: 16px; }
+    .dash-title { color: var(--navy); font-size: 14px; font-weight: 800; }
+    .dash-caption { color: #91a0b7; font-size: 10px; }
+    .dash-menu { width: 28px; height: 28px; display: grid; place-items: center; border-radius: 9px; background: #f3f6fc; color: #7a8aa5; }
+    .dash-menu svg { width: 15px; }
+    .ticket { display: flex; align-items: center; gap: 11px; padding: 12px 10px; border: 1px solid #eff2f8; border-radius: 12px; background: #fff; }
+    .ticket + .ticket { margin-top: 9px; }
+    .ticket-icon { flex: 0 0 37px; width: 37px; height: 37px; display: grid; place-items: center; border-radius: 11px; color: var(--blue); background: #edf3ff; }
+    .ticket-icon svg { width: 18px; height: 18px; }
+    .ticket:nth-of-type(3) .ticket-icon { color: #d58a26; background: #fff5e7; }
+    .ticket:nth-of-type(4) .ticket-icon { color: #22976e; background: #e9f8f1; }
+    .ticket-info { min-width: 0; flex: 1; }
+    .ticket-info strong { display: block; overflow: hidden; color: #293d5d; font-size: 11px; text-overflow: ellipsis; white-space: nowrap; }
+    .ticket-info small { display: block; color: #9aa8bb; font-size: 9px; }
+    .status { padding: 4px 8px; border-radius: 99px; background: #edf3ff; color: #4774d5; font-size: 9px; font-weight: 700; white-space: nowrap; }
+    .status.wait { color: #bd8023; background: #fff6e8; }
+    .status.done { color: #238263; background: #eaf8f1; }
+    .dash-foot { display: flex; align-items: center; justify-content: space-between; margin-top: 14px; padding: 12px 13px; border-radius: 12px; background: #f5f8ff; }
+    .dash-foot span { color: #7889a3; font-size: 10px; }
+    .dash-foot strong { color: var(--navy); font-size: 13px; }
+    .floating-card { position: absolute; z-index: 2; display: flex; align-items: center; gap: 10px; padding: 12px 15px; border: 1px solid #edf1f8; border-radius: 14px; background: #fff; box-shadow: 0 13px 35px rgba(34,71,140,.13); }
+    .floating-card.top { top: 30px; right: -17px; }
+    .floating-card.bottom { bottom: 27px; left: -20px; }
+    .float-icon { width: 34px; height: 34px; display: grid; place-items: center; border-radius: 10px; color: var(--green); background: #e8f8f1; }
+    .float-icon svg { width: 18px; }
+    .floating-card strong { display: block; color: var(--navy); font-size: 11px; }
+    .floating-card small { display: block; color: #8c9bb1; font-size: 9px; }
+
+    .section { padding-block: 86px; }
+    .section-heading { max-width: 620px; margin: 0 auto 38px; text-align: center; }
+    .section-kicker { color: var(--blue); font-size: 12px; font-weight: 800; letter-spacing: 1.1px; text-transform: uppercase; }
+    h2 { margin: 8px 0 10px; color: var(--navy); font-size: clamp(28px, 3.5vw, 38px); line-height: 1.3; letter-spacing: -.7px; }
+    .section-heading p { margin: 0; color: var(--muted); font-size: 15px; }
+    .service-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; }
+    .service-card { padding: 25px 24px; border: 1px solid var(--line); border-radius: 17px; background: #fff; transition: transform .2s ease, box-shadow .2s ease, border-color .2s ease; }
+    .service-card:hover { transform: translateY(-4px); border-color: #d4e0fa; box-shadow: 0 15px 34px rgba(35,72,137,.08); }
+    .service-icon { width: 47px; height: 47px; display: grid; place-items: center; margin-bottom: 19px; border-radius: 14px; background: #eff4ff; color: var(--blue); }
+    .service-icon svg { width: 23px; height: 23px; }
+    .service-card h3 { margin: 0 0 7px; color: var(--navy); font-size: 17px; }
+    .service-card p { margin: 0; color: #7b8aa2; font-size: 13px; }
+
+    .process { background: #f7f9fd; }
+    .steps { display: grid; grid-template-columns: repeat(3, 1fr); gap: 25px; }
+    .step { position: relative; padding: 10px 24px 12px; text-align: center; }
+    .step-number { width: 54px; height: 54px; display: grid; place-items: center; margin: 0 auto 17px; border: 6px solid #e8efff; border-radius: 50%; background: var(--blue); color: white; font-size: 15px; font-weight: 800; }
+    .step h3 { margin: 0 0 7px; color: var(--navy); font-size: 16px; }
+    .step p { max-width: 245px; margin: 0 auto; color: #7b8aa2; font-size: 13px; }
+
+    .request-section { padding-block: 76px; }
+    .request-panel { display: grid; grid-template-columns: .9fr 1.1fr; overflow: hidden; border-radius: 22px; background: var(--navy); box-shadow: var(--shadow); }
+    .request-copy { position: relative; overflow: hidden; padding: 43px 38px; color: white; }
+    .request-copy::after { content: ""; position: absolute; width: 240px; height: 240px; right: -120px; bottom: -135px; border: 1px solid rgba(255,255,255,.11); border-radius: 50%; box-shadow: 0 0 0 30px rgba(255,255,255,.035), 0 0 0 60px rgba(255,255,255,.025); }
+    .request-copy .section-kicker { color: #99baff; }
+    .request-copy h2 { max-width: 330px; margin-top: 10px; color: white; font-size: 32px; }
+    .request-copy p { max-width: 340px; margin: 0; color: #c1cde0; font-size: 14px; }
+    .contact-line { display: flex; align-items: center; gap: 11px; margin-top: 30px; color: #e5edfc; font-size: 13px; }
+    .contact-line svg { width: 19px; color: #9dbaff; }
+    .request-form { padding: 34px; background: white; }
+    .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; }
+    .field { display: flex; flex-direction: column; gap: 6px; }
+    .field.full { grid-column: 1 / -1; }
+    .field label { color: #405371; font-size: 12px; font-weight: 700; }
+    .field input, .field select, .field textarea { width: 100%; min-height: 43px; padding: 10px 12px; border: 1px solid #e1e8f2; border-radius: 9px; outline: none; background: #fbfcfe; color: var(--ink); font-size: 13px; }
+    .field textarea { min-height: 85px; resize: vertical; }
+    .field input:focus, .field select:focus, .field textarea:focus { border-color: #80a5f4; box-shadow: 0 0 0 3px rgba(40,100,232,.1); background: white; }
+    .form-footer { display: flex; align-items: center; justify-content: space-between; gap: 14px; margin-top: 17px; }
+    .privacy-note { color: #93a0b4; font-size: 10px; }
+    .form-footer .button { min-height: 43px; font-size: 13px; }
+    .form-message { display: none; margin: 14px 0 0; padding: 10px 12px; border-radius: 9px; background: #eaf8f1; color: #217956; font-size: 12px; }
+    .form-message.show { display: block; }
+
+    footer { border-top: 1px solid var(--line); }
+    .footer-inner { min-height: 80px; display: flex; align-items: center; justify-content: space-between; gap: 18px; color: #8492a8; font-size: 11px; }
+    .footer-brand { color: var(--navy); font-size: 15px; font-weight: 800; }
+    .footer-brand span { color: var(--blue); }
+
+    @media (max-width: 850px) {
+      .hero-grid { min-height: auto; grid-template-columns: 1fr 0.85fr; gap: 24px; padding-block: 56px 66px; }
+      .visual { min-height: 360px; }
+      .visual-orbit { width: 310px; height: 310px; }
+      .floating-card.top { right: -2px; }
+      .floating-card.bottom { left: -3px; }
+      .nav-links { gap: 18px; }
+      .request-panel { grid-template-columns: .8fr 1.2fr; }
+      .request-copy { padding: 35px 27px; }
+      .request-form { padding: 27px; }
+    }
+    @media (max-width: 650px) {
+      .container { width: min(100% - 36px, 500px); }
+      .topbar-inner { justify-content: center; }
+      .topbar-inner > span:last-child { display: none; }
+      .nav { min-height: 66px; gap: 12px; }
+      .nav-links { display: none; }
+      .nav > .button { min-height: 41px; padding-inline: 13px; font-size: 12px; }
+      .hero-grid { grid-template-columns: 1fr; gap: 6px; padding-block: 55px 45px; }
+      h1 { max-width: 500px; font-size: clamp(39px, 10vw, 53px); }
+      .hero-copy { font-size: 15px; }
+      .visual { min-height: 360px; margin-top: 10px; }
+      .visual-orbit { width: 310px; height: 310px; }
+      .dashboard { width: min(100% - 22px, 390px); }
+      .floating-card.top { right: 0; }
+      .floating-card.bottom { left: 0; }
+      .section { padding-block: 67px; }
+      .service-grid { grid-template-columns: 1fr; gap: 12px; }
+      .service-card { display: flex; align-items: flex-start; gap: 15px; padding: 19px; }
+      .service-icon { flex: 0 0 44px; width: 44px; height: 44px; margin: 0; }
+      .service-card h3 { font-size: 15px; }
+      .service-card p { font-size: 12px; }
+      .steps { grid-template-columns: 1fr; gap: 18px; }
+      .step { padding: 3px 12px; }
+      .request-section { padding-block: 55px; }
+      .request-panel { grid-template-columns: 1fr; }
+      .request-copy { padding: 33px 25px 27px; }
+      .request-copy h2 { font-size: 28px; }
+      .contact-line { margin-top: 20px; }
+      .request-form { padding: 24px 20px; }
+      .form-grid { grid-template-columns: 1fr; }
+      .field.full { grid-column: auto; }
+      .form-footer { align-items: flex-start; flex-direction: column; }
+      .footer-inner { min-height: 75px; flex-direction: column; justify-content: center; gap: 2px; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { scroll-behavior: auto !important; transition-duration: .01ms !important; }
+    }
+  </style>
+</head>
+<body>
+  <div class="topbar">
+    <div class="container topbar-inner">
+      <span class="topbar-note"><span class="live-dot"></span> ทีม IT Support พร้อมช่วยเหลือในวันทำการ 08:30–17:30 น.</span>
+      <span>ติดต่อด่วน <a href="tel:021234567">02-123-4567</a></span>
+    </div>
+  </div>
+
+  <header>
+    <nav class="container nav" aria-label="เมนูหลัก">
+      <a class="brand" href="#" aria-label="FixFlow หน้าแรก">
+        <span class="brand-mark"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M13.2 2.8a6.1 6.1 0 0 0-7.5 7.5L2.5 13.5a2.1 2.1 0 0 0 3 3l3.2-3.2a6.1 6.1 0 0 0 7.5-7.5l-3.5 3.5-3-3 3.5-3.5Z" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/><path d="m14 14 6 6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg></span>
+        <span>Fix<span>Flow</span></span>
+      </a>
+      <div class="nav-links">
+        <a href="#services">บริการของเรา</a>
+        <a href="#process">ขั้นตอนการแจ้ง</a>
+        <a href="#contact">ติดต่อเรา</a>
+      </div>
+      <a class="button" href="#contact">แจ้งซ่อมเลย <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 12h14m-6-6 6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+    </nav>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="container hero-grid">
+        <div>
+          <div class="eyebrow"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 3 4.5 6v5.5c0 4.5 3.2 7.7 7.5 9.5 4.3-1.8 7.5-5 7.5-9.5V6L12 3Z" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/><path d="m9 12 2 2 4-4" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg> IT Support ที่คุณวางใจได้</div>
+          <h1>ปัญหาไอที<br>ให้เราช่วย <span>ดูแล</span></h1>
+          <p class="hero-copy">แจ้งซ่อมและขอความช่วยเหลือด้านไอทีได้ในที่เดียว ติดตามทุกขั้นตอนได้ง่าย เพื่อให้คุณกลับไปทำงานได้อย่างราบรื่น</p>
+          <div class="hero-actions">
+            <a class="button" href="#contact">เริ่มแจ้งปัญหา <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 12h14m-6-6 6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+            <a class="button button-outline" href="#services">ดูบริการของเรา</a>
+          </div>
+          <div class="trust-row">
+            <div class="avatars" aria-hidden="true"><span class="avatar">IT</span><span class="avatar">IT</span><span class="avatar">IT</span><span class="avatar">IT</span></div>
+            <span>ทีมผู้เชี่ยวชาญพร้อมดูแลทุกปัญหาของคุณ</span>
+          </div>
+        </div>
+        <div class="visual" aria-label="ตัวอย่างหน้าติดตามสถานะงานซ่อม">
+          <div class="visual-orbit"></div>
+          <div class="floating-card top">
+            <span class="float-icon"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="m5 12 4 4L19 6" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+            <span><strong>รับเรื่องแล้ว</strong><small>ทีมงานกำลังตรวจสอบ</small></span>
+          </div>
+          <div class="dashboard">
+            <div class="dash-head"><div><div class="dash-title">รายการแจ้งซ่อม</div><div class="dash-caption">ติดตามงานของคุณได้ทุกที่</div></div><span class="dash-menu"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><circle cx="5" cy="12" r="1.7"/><circle cx="12" cy="12" r="1.7"/><circle cx="19" cy="12" r="1.7"/></svg></span></div>
+            <div class="ticket">
+              <span class="ticket-icon"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="3" y="5" width="18" height="13" rx="2" stroke="currentColor" stroke-width="1.7"/><path d="M8 21h8m-4-3v3" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/></svg></span>
+              <span class="ticket-info"><strong>คอมพิวเตอร์เปิดไม่ติด</strong><small>วันนี้ · 09:42 น.</small></span><span class="status">กำลังดำเนินการ</span>
+            </div>
+            <div class="ticket">
+              <span class="ticket-icon"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 8.5a10 10 0 0 1 14 0M8 12a5.7 5.7 0 0 1 8 0m-5.3 3.5a1.9 1.9 0 0 1 2.6 0M12 19h.01" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg></span>
+              <span class="ticket-info"><strong>ขอเชื่อมต่อ Wi-Fi</strong><small>วันนี้ · 08:15 น.</small></span><span class="status wait">รอดำเนินการ</span>
+            </div>
+            <div class="ticket">
+              <span class="ticket-icon"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M4 7h16v13H4zM8 4h8v3H8zM8 12h8m-8 4h5" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+              <span class="ticket-info"><strong>ติดตั้งโปรแกรมสำนักงาน</strong><small>เมื่อวาน · 15:30 น.</small></span><span class="status done">เสร็จแล้ว</span>
+            </div>
+            <div class="dash-foot"><span>งานที่ดูแลทั้งหมด</span><strong>12 รายการ <span style="color:#26936c;font-size:10px">↑ 4 งาน</span></strong></div>
+          </div>
+          <div class="floating-card bottom">
+            <span class="float-icon"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="1.8"/><path d="M12 7v5l3 2" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg></span>
+            <span><strong>ตอบกลับรวดเร็ว</strong><small>พร้อมช่วยทุกขั้นตอน</small></span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="services">
+      <div class="container">
+        <div class="section-heading">
+          <span class="section-kicker">Our services</span>
+          <h2>ดูแลทุกเรื่องไอทีในที่เดียว</h2>
+          <p>ไม่ว่าจะเป็นอุปกรณ์ โปรแกรม หรือระบบเครือข่าย ทีมงานของเราพร้อมช่วยให้ทุกอย่างกลับมาทำงานได้เต็มประสิทธิภาพ</p>
+        </div>
+        <div class="service-grid">
+          <article class="service-card">
+            <span class="service-icon"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="3" y="4" width="18" height="13" rx="2" stroke="currentColor" stroke-width="1.7"/><path d="M8 21h8m-4-4v4" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/></svg></span>
+            <div><h3>คอมพิวเตอร์และอุปกรณ์</h3><p>ซ่อม ตรวจเช็ก และแก้ไขปัญหาคอมพิวเตอร์หรืออุปกรณ์สำนักงาน</p></div>
+          </article>
+          <article class="service-card">
+            <span class="service-icon"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 8.5a10 10 0 0 1 14 0M8 12a5.7 5.7 0 0 1 8 0m-5.3 3.5a1.9 1.9 0 0 1 2.6 0M12 19h.01" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg></span>
+            <div><h3>ระบบเครือข่ายและอินเทอร์เน็ต</h3><p>ช่วยแก้ปัญหา Wi-Fi, LAN, VPN และการเชื่อมต่อระบบต่าง ๆ</p></div>
+          </article>
+          <article class="service-card">
+            <span class="service-icon"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="4" y="3" width="16" height="18" rx="2" stroke="currentColor" stroke-width="1.7"/><path d="M8 8h8m-8 4h8m-8 4h5" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/></svg></span>
+            <div><h3>โปรแกรมและบัญชีผู้ใช้</h3><p>ติดตั้งโปรแกรม ตั้งค่าอีเมล และดูแลการเข้าใช้งานระบบของคุณ</p></div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section process" id="process">
+      <div class="container">
+        <div class="section-heading">
+          <span class="section-kicker">How it works</span>
+          <h2>แจ้งง่าย ติดตามได้ทุกขั้นตอน</h2>
+          <p>เพียงไม่กี่ขั้นตอน ปัญหาของคุณก็ถึงมือทีม IT Support</p>
+        </div>
+        <div class="steps">
+          <article class="step"><span class="step-number">1</span><h3>แจ้งรายละเอียดปัญหา</h3><p>เลือกประเภทบริการและอธิบายอาการที่พบ เพื่อให้เราช่วยได้ตรงจุด</p></article>
+          <article class="step"><span class="step-number">2</span><h3>ทีมงานตรวจสอบ</h3><p>เจ้าหน้าที่รับเรื่อง ประเมินปัญหา และติดต่อกลับเพื่อดำเนินการ</p></article>
+          <article class="step"><span class="step-number">3</span><h3>แก้ไขและปิดงาน</h3><p>ติดตามสถานะจนกว่าปัญหาจะได้รับการแก้ไขและใช้งานได้ตามปกติ</p></article>
+        </div>
+      </div>
+    </section>
+
+    <section class="request-section" id="contact">
+      <div class="container">
+        <div class="request-panel">
+          <div class="request-copy">
+            <span class="section-kicker">Need a hand?</span>
+            <h2>พร้อมให้เราช่วยแก้ปัญหาไหม?</h2>
+            <p>กรอกรายละเอียดเบื้องต้น ทีม IT Support จะติดต่อกลับเพื่อช่วยเหลือคุณ</p>
+            <div class="contact-line"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 4h3l2 5-2 1.5a15 15 0 0 0 5.5 5.5L15 14l5 2v3a1 1 0 0 1-1 1C10.7 20 4 13.3 4 5a1 1 0 0 1 1-1Z" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg><span>02-123-4567 · จันทร์–ศุกร์ 08:30–17:30 น.</span></div>
+          </div>
+          <form class="request-form" id="request-form">
+            <div class="form-grid">
+              <div class="field"><label for="name">ชื่อผู้แจ้ง</label><input id="name" name="name" type="text" placeholder="ชื่อของคุณ" autocomplete="name" required></div>
+              <div class="field"><label for="email">อีเมล</label><input id="email" name="email" type="email" placeholder="name@company.com" autocomplete="email" required></div>
+              <div class="field full"><label for="category">ประเภทปัญหา</label><select id="category" name="category" required><option value="" selected disabled>เลือกประเภทบริการ</option><option>คอมพิวเตอร์และอุปกรณ์</option><option>ระบบเครือข่ายและอินเทอร์เน็ต</option><option>โปรแกรมและบัญชีผู้ใช้</option><option>อื่น ๆ</option></select></div>
+              <div class="field full"><label for="details">รายละเอียดปัญหา</label><textarea id="details" name="details" placeholder="เล่าอาการหรือสิ่งที่ต้องการให้เราช่วย..." required></textarea></div>
+            </div>
+            <div class="form-footer"><span class="privacy-note">ข้อมูลของคุณจะถูกใช้เพื่อการติดต่อและให้บริการเท่านั้น</span><button class="button" type="submit">ส่งคำขอ <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="m5 12 14-7-5 14-2-6-7-1Z" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></button></div>
+            <p class="form-message" id="form-message" role="status">ขอบคุณสำหรับการแจ้งปัญหา แบบฟอร์มตัวอย่างนี้ยังไม่ได้เชื่อมต่อระบบส่งคำขอ กรุณาติดต่อทีม IT Support โดยตรง</p>
+          </form>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container footer-inner">
+      <a class="footer-brand" href="#">Fix<span>Flow</span></a>
+      <span>© 2025 FixFlow IT Support. ดูแลทุกปัญหาไอทีของคุณ</span>
+      <span>สร้างขึ้นเพื่อให้ทุกวันทำงานราบรื่น</span>
+    </div>
+  </footer>
+  <script>
+    document.getElementById("request-form").addEventListener("submit", function (event) {
+      event.preventDefault();
+      document.getElementById("form-message").classList.add("show");
+    });
+  </script>
+</body>
+</html>
